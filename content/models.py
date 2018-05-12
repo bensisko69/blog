@@ -10,12 +10,12 @@ class TypePost(models.Model):
 
 class Post(models.Model):
 	title = models.CharField(max_length=200)
-	text = models.TextField(max_length=5000)
-	serialNumberVideo = models.CharField(max_length=30)
+	text = models.TextField(max_length=5000, blank=True,null=True)
+	serialNumberVideo = models.CharField(max_length=30, blank=True,null=True)
 	authors = models.ManyToManyField(TypePost)
-	picturs = models.ImageField()
+	picturs = models.ImageField(blank=True,null=True)
 	publishPost = models.BooleanField(default=True)
-	created_date = models.DateTimeField(default=timezone.now)
+	created_date = models.DateTimeField(default=timezone.now, editable=False)
 
 
 	def publish(self):

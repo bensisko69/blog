@@ -1,7 +1,12 @@
 {% extends 'content/layaout.html' %}
-
 {% block body %}
+
+{{page}}
 <div class="container">
-	Login admin
+	<form method="post" action="/login">{% csrf_token %}
+		<input type="text" name="username" id="username" placeholder="username">
+		<input type="password" name="password" id="password" placeholder="mot de passe">
+		<input type="submit" name="" value="Envoyé">
+	</form>
 </div>
 {% endblock body %}

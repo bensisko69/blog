@@ -3,5 +3,20 @@
 {% block body %}
 <div class="container">
 		Formulaire contact
+	<form method="post">{% csrf_token %}
+	  <table>
+	    {% for field in formset %}
+	      <tr>
+	        <th>{{field.label_tag}}</th>
+	        <td>
+	          {{ field.errors }}
+	          {{ field }}
+	        </td>
+	      </tr>
+	    {% endfor %}
+	  </table>
+	  <hr/>
+	  <input type="submit" value="Envoyé" />
+	</form>
 </div>
 {% endblock body %}

@@ -1,11 +1,14 @@
+from django.contrib.auth import logout, authenticate, login as dj_login
 from django.shortcuts import render
 from django.utils import timezone
-from .models import Post, TypePost
-from django.contrib.auth import logout, authenticate, login as dj_login
-from pprint import pprint
 from django.http import HttpResponse
-import json
 from django.core import serializers
+import json
+from .models import Post, TypePost, Contact
+from .form import ContactForm
+from pprint import pprint
+
+
 
 def post_list(request):
 	posts = Post.objects.filter(created_date__lte=timezone.now()).order_by('created_date')
@@ -15,10 +18,14 @@ def post_list(request):
 
 def contact(request):
 	page = 'contact'
-	return render(request, 'content/contact.html', {"page":page})
+	formset = ContactForm(request.POST)
+	return render(request, 'content/contact.html', {"page":page, 'formset':formset})
 
 def admin(request):
 	page = 'admin'
+	if (request.user.is_authenticated):
+		contacts = Contact.objects.filter(created_date__lte=timezone.now(), treaty=False).order_by('created_date')
+		return render(request, 'content/admin.html', {"page":page, 'contacts':contacts})
 	return render(request, 'content/admin.html', {"page":page})
 
 def login(request):
@@ -28,7 +35,8 @@ def login(request):
 	if user is not None:
 		dj_login(request, user)
 		page = 'admin ok'
-		return render(request, 'content/admin.html', {"page":page})
+		contacts = Contact.objects.filter(created_date__lte=timezone.now(), treaty=False).order_by('created_date')
+		return render(request, 'content/admin.html', {"page":page, 'contacts':contacts})
 	else:
 		page = 'admin nok'
 		return render(request, 'content/admin.html', {"page":page})

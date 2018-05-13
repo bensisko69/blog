@@ -3,8 +3,14 @@
 
 <div class="container">
 {%  if request.user.is_authenticated %}
-	User log
 	<p><a href="/logout">logout</a></p>
+    {% for contact in contacts %}
+    	<p>{{ contact.firstname }}</p>
+    	<p>{{ contact.lastname }}</p>
+      	<p>{{ contact.email }}</p>
+      	<p>{{ contact.text }}</p>
+      	<p>{{ contact.treaty }}</p>
+    {% endfor %}
 {% else %}
 	<form method="post" action="/login">{% csrf_token %}
 		<input type="text" name="username" id="username" placeholder="username">

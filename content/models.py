@@ -29,14 +29,17 @@ class TypePost(models.Model):
 		return self.typePost
 
 class Post(models.Model):
-	title = models.CharField(max_length=200)
+	class Meta:
+	 	verbose_name = "Post"
+
+	title = models.CharField(max_length=200, verbose_name="Titre")
 	text = models.TextField(max_length=5000, blank=True,null=True)
-	serialNumberVideo = models.CharField(max_length=30, blank=True,null=True)
+	serialNumberVideo = models.CharField(max_length=30, blank=True,null=True, verbose_name="ID de la vidéo")
 	typePost = models.ManyToManyField(TypePost)
 	picturs = models.ImageField(_('Image file'),upload_to=upload_path,storage=PictureStorage(),blank=True,null=True)
-	link = models.CharField(max_length=200, blank=True,null=True)
-	nameLink = models.CharField(max_length=200, blank=True,null=True)
-	publishPost = models.BooleanField(default=True)
+	link = models.CharField(max_length=200, blank=True,null=True, verbose_name="Lien")
+	nameLink = models.CharField(max_length=200, blank=True,null=True, verbose_name="Nom du lien à afficher")
+	publishPost = models.BooleanField(default=True, verbose_name="Poster")
 	created_date = models.DateTimeField(default=timezone.now, editable=False)
 
 

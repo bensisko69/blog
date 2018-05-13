@@ -5,6 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 from os.path import splitext, basename
+
 class PictureStorage(FileSystemStorage):
     def __init__(self, *args, **kwargs):
         kwargs.update({
@@ -18,9 +19,8 @@ def upload_path(instance, filename):
     filename = basename(filename)
     _, extension = splitext(filename)
     now = timezone.now()
-    prefix = 'pictures'
     return '{}/{}/{}{}'.format(
-        prefix, now.year, '1', extension)
+        'pictures', now.year, filename.replace('.','_'), extension)
 
 class TypePost(models.Model):
 	typePost = models.CharField(max_length=200)

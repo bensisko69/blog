@@ -1,5 +1,20 @@
 
+{% extends 'content/layaout.html' %}
+{% block body %}
+<div class="container">
+	{% for post in posts %}
+	    <div>
+	        <h1>{{ post.title }}</h1>
+	        {% if post.serialNumberVideo %}
+	        	<iframe width="560" height="315" src="https://www.youtube.com/embed/{{ post.serialNumberVideo }}?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+	    	{% endif %}
+	    	{% if post.link %}
+	    		<br><a href="{{ post.link }}" target="_blank">{{ post.nameLink }}</a>
+	    	{% endif %}
+	        <p>{{ post.text|linebreaksbr }}</p>
+	        <p>publié: {{ post.created_date|date }}</p>
 
-xxx
-
-
+	    </div>
+	{% endfor %}
+</div>
+{% endblock body %}

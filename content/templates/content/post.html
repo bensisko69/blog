@@ -12,10 +12,11 @@
 		    		<br><a href="{{ post.link }}" target="_blank">{{ post.nameLink }}</a>
 		    	{% endif %}
 		    	{% if post.picturs %}
-		    	<img src="http://127.0.0.1:8000/media/{{ post.picturs }}">
+		    		<img src="http://127.0.0.1:8000/media/{{ post.picturs }}">
 		    	{% endif %}
 		        <p>{{ post.text|linebreaksbr }}</p>
 		        <p>publié: {{ post.created_date|date }}</p>
+		        <p><span class="like" data-id="{{ post.id }}">J'aime </span><span class="nbrLike{{ post.id }}">{{ post.like }}</span></p>
 		    </div>
 		{% endfor %}
 	</div>

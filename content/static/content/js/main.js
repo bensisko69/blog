@@ -26,3 +26,26 @@ $.ajaxSetup({
         }
     }
 });
+
+$(document).on('click', '.like', function()
+{
+    var id = $(this).data('id');
+    $.ajax({
+        url : "like/",
+        type : "POST",
+        data : { id : id },
+        dataType: 'json',
+        success : function(response) 
+        {
+            if (response.status == 'success')
+            {
+                $('.nbrLike'+id).html(response.like);
+            }
+        },
+        error : function(xhr,errmsg,err) 
+        {
+            console.log(xhr.status + ": " + xhr.responseText);
+        }
+    });
+
+});

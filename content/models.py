@@ -35,7 +35,7 @@ class Post(models.Model):
 	title = models.CharField(max_length=200, verbose_name="Titre")
 	text = models.TextField(max_length=5000, blank=True,null=True)
 	serialNumberVideo = models.CharField(max_length=30, blank=True,null=True, verbose_name="ID de la vidéo")
-	typePost = models.ManyToManyField(TypePost)
+	typePost = models.ManyToManyField(TypePost, verbose_name="Date création")
 	picturs = models.ImageField(_('Image file'),upload_to=upload_path,storage=PictureStorage(),blank=True,null=True)
 	link = models.CharField(max_length=200, blank=True,null=True, verbose_name="Lien")
 	nameLink = models.CharField(max_length=200, blank=True,null=True, verbose_name="Nom du lien à afficher")

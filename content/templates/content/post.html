@@ -1,4 +1,5 @@
 {% extends 'content/layaout.html' %}
+{% load social_share %}
 
 {% block body %}
 	<div class="container">
@@ -16,7 +17,8 @@
 		    	{% endif %}
 		        <p>{{ post.text|linebreaksbr }}</p>
 		        <p>publié: {{ post.created_date|date }}</p>
-
+				{% post_to_facebook coucou "Post to Facebook!" %}
+				{% send_email object.title "New Song: {{object.title}}. Check it out!" object_or_url "Share via email" %}
 		    </div>
 		{% endfor %}
 	</div>

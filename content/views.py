@@ -79,3 +79,22 @@ def filterPost(request):
 		response['status'] = 'success'
 		response['posts'] = json_serialized_objects = serializers.serialize("json", posts)
 	return HttpResponse(json.dumps(response),content_type="application/json")
+
+def treaty(request):
+	if (request.method == 'POST'):
+		response = {}
+		contactId = request.POST.get('id')
+		if (contactId):
+			contact = Contact.objects.get(id=contactId)
+			if (contact):
+				contact.treaty = True
+				contact.save()
+				response['status'] = 'success'
+				response['treaty'] = True
+			else:
+				response['status'] = 'wrong'
+				response['error'] = 'no contact'
+		else:
+			response['status'] = 'wrong'
+			response['error'] = 'no contact id'
+	return HttpResponse(json.dumps(response),content_type="application/json")

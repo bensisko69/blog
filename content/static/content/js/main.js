@@ -80,3 +80,25 @@ $(document).on('change', '.selectType', function()
         }
     });
 })
+
+$(document).on('click', '.treaty', function()
+{
+    var id = $(this).data('id');
+    $.ajax({
+        url : "treaty/",
+        type : "POST",
+        data : { id : id },
+        dataType: 'json',
+        success : function(response) 
+        {
+            if (response.status == 'success')
+            {
+               $('.contact'+id).empty();
+            }
+        },
+        error : function(xhr,errmsg,err) 
+        {
+            console.log(xhr.status + ": " + xhr.responseText);
+        }
+    });
+})

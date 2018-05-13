@@ -6,11 +6,14 @@
 	<p><a href="/logout">logout</a></p>
 	{% if contacts|length > 0 %}
 	    {% for contact in contacts %}
-	    	<p>{{ contact.firstname }}</p>
-	    	<p>{{ contact.lastname }}</p>
-	      	<p>{{ contact.email }}</p>
-	      	<p>{{ contact.text }}</p>
-	      	<p>{{ contact.treaty }}</p>
+		    <div class="contact{{ contact.id }}">
+		    	<p>{{ contact.firstname }}</p>
+		    	<p>{{ contact.lastname }}</p>
+		      	<p>{{ contact.email }}</p>
+		      	<p>{{ contact.text }}</p>
+		      	<p>{{ contact.treaty }}</p>
+		      	<input type="button" name="treaty" class="treaty" data-id="{{ contact.id }}" value="Traité la demande">
+		    </div>
 	    {% endfor %}
     {% else %}
     	<p>Acune demande de contact en attente d'etre traité</p>

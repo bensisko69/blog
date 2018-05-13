@@ -43,10 +43,17 @@ class Post(models.Model):
 	created_date = models.DateTimeField(default=timezone.now, editable=False, verbose_name="Créé le")
 	like = models.IntegerField(default=0, verbose_name="Nombre de like", editable=False)
 
-	def publish(self):
-		self.published_date = timezone.now()
-		self.save()
-
 	def __str__(self):
 		return self.title
 			
+class Contact(models.Model):
+	firstname = models.CharField(max_length=200, verbose_name="Prénom", blank=True,null=True)
+	lastname = models.CharField(max_length=200, verbose_name="Nom", blank=True,null=True)
+	email = models.EmailField(max_length=200, verbose_name="Email")
+	text = models.TextField(max_length=5000, verbose_name="Commentaire")
+	created_date = models.DateTimeField(default=timezone.now, editable=False, verbose_name="Créé le")
+	treaty = models.BooleanField(default=False, verbose_name="Traité")
+
+	def __str__(self):
+		return self.email
+		

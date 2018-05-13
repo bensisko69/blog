@@ -49,3 +49,34 @@ $(document).on('click', '.like', function()
     });
 
 });
+
+$(document).on('change', '.selectType', function()
+{
+    var id = $(this).val();
+    $.ajax({
+        url : "filterPost/",
+        type : "POST",
+        data : { id : id },
+        dataType: 'json',
+        success : function(response) 
+        {
+            if (response.status == 'success')
+            {
+               var  objs = JSON.parse(response.posts);
+               console.log(objs);
+               $('.listPosts').empty();
+               $.each(objs, function(key, value)
+               {
+                    $('.listPosts').append(
+                        '<h1>' + value.fields.title +'</h1>'
+                    )
+               })
+
+            }
+        },
+        error : function(xhr,errmsg,err) 
+        {
+            console.log(xhr.status + ": " + xhr.responseText);
+        }
+    });
+})

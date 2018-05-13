@@ -2,22 +2,30 @@
 {% load static %}
 {% block body %}
 	<div class="container">
-		{% for post in posts %}
-		    <div>
-		        <h1>{{ post.title }}</h1>
-		        {% if post.serialNumberVideo %}
-		        	<iframe width="560" height="315" src="https://www.youtube.com/embed/{{ post.serialNumberVideo }}?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-		    	{% endif %}
-		    	{% if post.link %}
-		    		<br><a href="{{ post.link }}" target="_blank">{{ post.nameLink }}</a>
-		    	{% endif %}
-		    	{% if post.picturs %}
-		    		<img src="http://127.0.0.1:8000/media/{{ post.picturs }}">
-		    	{% endif %}
-		        <p>{{ post.text|linebreaksbr }}</p>
-		        <p>publié: {{ post.created_date|date }}</p>
-		        <p><span class="like" data-id="{{ post.id }}"><img src="{% static  "static/content/img/like.png" %}" style="width: 5%"> </span><span class="nbrLike{{ post.id }}">{{ post.like }}</span></p>
-		    </div>
-		{% endfor %}
+		<select class="selectType">
+			<option value="null">Tout les posts</option>
+			{% for type in types %}
+				<option value="{{ type.id}}">{{ type.typePost }}</option>
+			{% endfor %}
+		</select>
+		<div class="listPosts">
+			{% for post in posts %}
+			    <div>
+			        <h1>{{ post.title }}</h1>
+			        {% if post.serialNumberVideo %}
+			        	<iframe width="560" height="315" src="https://www.youtube.com/embed/{{ post.serialNumberVideo }}?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+			    	{% endif %}
+			    	{% if post.link %}
+			    		<br><a href="{{ post.link }}" target="_blank">{{ post.nameLink }}</a>
+			    	{% endif %}
+			    	{% if post.picturs %}
+			    		<img src="http://127.0.0.1:8000/media/{{ post.picturs }}">
+			    	{% endif %}
+			        <p>{{ post.text|linebreaksbr }}</p>
+			        <p>publié: {{ post.created_date|date }}</p>
+			        <p><span class="like" data-id="{{ post.id }}"><img src="{% static  "static/content/img/like.png" %}" style="width: 5%"> </span><span class="nbrLike{{ post.id }}">{{ post.like }}</span></p>
+			    </div>
+			{% endfor %}
+		</div>
 	</div>
 {% endblock body %}

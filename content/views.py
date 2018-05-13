@@ -1,15 +1,17 @@
 from django.shortcuts import render
 from django.utils import timezone
-from .models import Post
+from .models import Post, TypePost
 from django.contrib.auth import logout, authenticate, login as dj_login
 from pprint import pprint
 from django.http import HttpResponse
 import json
+from django.core import serializers
 
 def post_list(request):
 	posts = Post.objects.filter(created_date__lte=timezone.now()).order_by('created_date')
+	types = TypePost.objects.all()
 	page = 'home'
-	return render(request, 'content/post.html', {'posts': posts, "page": page})
+	return render(request, 'content/post.html', {'posts': posts, "page": page, 'types':types})
 
 def contact(request):
 	page = 'contact'
@@ -56,4 +58,16 @@ def like(request):
 	else:
 		response['status'] = 'wrong'
 		response['error'] = 'no requete post'
+	return HttpResponse(json.dumps(response),content_type="application/json")
+
+def filterPost(request):
+	if (request.method == 'POST'):
+		response = {}
+		typeId = request.POST.get('id')
+		if (typeId == 'null'):
+			posts = Post.objects.filter(created_date__lte=timezone.now()).order_by('created_date')
+		else:
+			posts = Post.objects.filter(typePost=typeId).order_by('created_date')
+		response['status'] = 'success'
+		response['posts'] = json_serialized_objects = serializers.serialize("json", posts)
 	return HttpResponse(json.dumps(response),content_type="application/json")

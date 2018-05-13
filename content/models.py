@@ -39,9 +39,9 @@ class Post(models.Model):
 	picturs = models.ImageField(_('Image file'),upload_to=upload_path,storage=PictureStorage(),blank=True,null=True)
 	link = models.CharField(max_length=200, blank=True,null=True, verbose_name="Lien")
 	nameLink = models.CharField(max_length=200, blank=True,null=True, verbose_name="Nom du lien à afficher")
-	publishPost = models.BooleanField(default=True, verbose_name="Poster")
-	created_date = models.DateTimeField(default=timezone.now, editable=False)
-
+	publishPost = models.BooleanField(default=True, verbose_name="Mettre en ligne")
+	created_date = models.DateTimeField(default=timezone.now, editable=False, verbose_name="Créé le")
+	like = models.IntegerField(default=0, verbose_name="Nombre de like", editable=False)
 
 	def publish(self):
 		self.published_date = timezone.now()

@@ -6,7 +6,7 @@ from django.conf import settings
 urlpatterns = [
     url(r'^$', views.post_list, name='post_list'),
     url(r'contact', views.contact, name='contact'),
-    url(r'admin', views.admin, name='admin'),
+    url(r'adminFront', views.admin, name='admin'),
     url(r'login', views.login, name='login'),
     url(r'logout', views.logout_view, name='logout_view'),
     url(r'like', views.like, name='like'),

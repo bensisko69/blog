@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.utils import timezone
 from .models import Post
-from django.contrib.auth import authenticate, login as dj_login
+from django.contrib.auth import logout, authenticate, login as dj_login
 from pprint import pprint
 
 def post_list(request):
@@ -29,3 +29,7 @@ def login(request):
 		page = 'admin nok'
 		return render(request, 'content/admin.html', {"page":page})
 
+def logout_view(request):
+	logout(request)
+	page = 'admin nok'
+	return render(request, 'content/admin.html', {"page":page})

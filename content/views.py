@@ -34,16 +34,16 @@ def login(request):
 	user = authenticate(request, username=username, password=password)
 	if user is not None:
 		dj_login(request, user)
-		page = 'admin ok'
+		page = 'admin'
 		contacts = Contact.objects.filter(created_date__lte=timezone.now(), treaty=False).order_by('created_date')
 		return render(request, 'content/admin.html', {"page":page, 'contacts':contacts})
 	else:
-		page = 'admin nok'
+		page = 'admin'
 		return render(request, 'content/admin.html', {"page":page})
 
 def logout_view(request):
 	logout(request)
-	page = 'admin nok'
+	page = 'admin'
 	return render(request, 'content/admin.html', {"page":page})
 
 def like(request):

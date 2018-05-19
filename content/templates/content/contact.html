@@ -1,22 +1,16 @@
 {% extends 'content/layaout.html' %}
-
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
 {% block body %}
 <div class="container">
-		Formulaire contact
-	<form method="post">{% csrf_token %}
-	  <table>
-	    {% for field in formset %}
-	      <tr>
-	        <th>{{field.label_tag}}</th>
-	        <td>
-	          {{ field.errors }}
-	          {{ field }}
-	        </td>
-	      </tr>
-	    {% endfor %}
-	  </table>
-	  <hr/>
-	  <input type="submit" value="Envoyé" />
+		{% bootstrap_messages %}
+	<form method="post">
+		{% csrf_token %}
+		{% bootstrap_form formset %}
+		    {% buttons %}
+			<button type="submit" class="btn btn-primary">Submit</button>
+		  {% endbuttons %}
 	</form>
 </div>
 {% endblock body %}
